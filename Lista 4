@@ -10,6 +10,8 @@
 // Crie um tipo estruturado para armazenar dados de um ingresso. Uma estrutura deste tipo possui os
 // seguintes campos: preço, local e atração. 
 
+// criando a struct 
+
 typedef struct ingresso {
 	      float preco;
 	      char local[50];
@@ -19,6 +21,8 @@ typedef struct ingresso {
 
 // Escreva uma função que receba como parâmetro o endereço de uma estrutura do tipo Ingresso e 
 // preencha seus campos com valores fornecidos pelo usuário via teclado
+
+// criando a funcao que lera os elementos da struct
 
 void preenche(Ingresso* i) {
 	printf("Preço : \n");
@@ -33,12 +37,16 @@ void preenche(Ingresso* i) {
 // Escreva uma função que receba como parâmetro o endereço de uma estrutura do tipo Ingresso e imprima
 // os valores dos seus campos
 
+// criando funcao que imprimira o resultado dos elementos lidos
+
 void imprime(Ingresso* i) {
 	printf("O preço é %.2f reais \nNo local %s \nCom atração %s \n", i->preco,i->local,i->atracao);
 }
 
 // Escreva uma função que receba, como parâmetros, o endereço de uma estrutura do tipo Ingresso e um
 // novo valor de preço e atualize o preço do ingresso para o novo valor. 
+
+// alterando o preco do ingresso do primeiro ingresso
 
 void altera_preco(Ingresso* i){
 	float valor;
@@ -53,6 +61,8 @@ void altera_preco(Ingresso* i){
 // Escreva uma função que receba, como parâmetros, um vetor de ingressos e o tamanho do vetor e
 // imprima os eventos de ingresso mais barato e mais caro.
 
+// verificando maior e menor preco, isso depois de ter alterado o preco
+
 void imprime_menor_maior_preco(int n, Ingresso* vet){
 	int i;
 	int menor=0, maior=0;
@@ -65,6 +75,7 @@ void imprime_menor_maior_preco(int n, Ingresso* vet){
         }
     }
     
+    // impimindo ingresso mais barato e mais caro
     printf("O ingresso com eventos mais caros é o com a atração %s", vet[maior].atracao);
     printf(" e o ingresso com eventos mais barato é o com a atração %s", vet[menor].atracao);
     
@@ -78,8 +89,12 @@ setlocale(LC_ALL, "portuguese");
 
 int n;	
 int i;
+// lendo a quantiade de ingressos 
+
 printf("Quantos ingressos deseja comprar ? \n");
 scanf("%d", &n);
+
+// chamando as funcoes
 
 Ingresso vet[n];
 
@@ -104,7 +119,7 @@ Ingresso vet[n];
 #include <locale.h>
 #include<stdlib.h>
 #define MAX 1
-
+// criando a estrutura
 typedef struct aluno{
 	    char nome[80];
 		char turma[10];
@@ -116,9 +131,14 @@ typedef struct aluno{
 } Aluno;
 
 
+// criando funcao que lera os dados do aluno
+
 void matricula(int n,Aluno**alunos){
 	 static int i;
       if(i<n){
+      
+      // alocando vetor de alunos
+      
      *alunos = (Aluno*) malloc(n*sizeof(Aluno));
    
      for(i=0;i< n;i++){
@@ -141,6 +161,8 @@ void matricula(int n,Aluno**alunos){
 	 
 }
 
+// criando funcao que ler as notas e faz a media
+
 void lanca_notas(int n,Aluno** alunos){
 	 int i;
     
@@ -153,6 +175,7 @@ void lanca_notas(int n,Aluno** alunos){
            }
     }
 }	
+// imprimindo os resultados
 
 void imprime_tudo(int n,Aluno** alunos){
 
@@ -165,6 +188,7 @@ void imprime_tudo(int n,Aluno** alunos){
 }
 	    }
    }
+// criando funcao que imprime os dados de aluno de determinada classe
 
 void imprime_turma(int n, Aluno** alunos,char turma){
 	 
@@ -179,6 +203,8 @@ void imprime_turma(int n, Aluno** alunos,char turma){
 	 
 	
 }
+
+// criando funcao para alunos aprovados 
 
 void imprime_turma_aprovados(int n, Aluno**alunos, char turma){
     int i;
@@ -200,7 +226,8 @@ int main(){
 
 Aluno *aluno[MAX];
 
-	
+// chamando funcoes 
+
 matricula(MAX, aluno);
 lanca_notas(MAX, aluno);
 imprime_tudo(MAX,aluno);
@@ -217,44 +244,50 @@ imprime_turma_aprovados(MAX,aluno, 'a');
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+// criando struct para retangulo
 typedef struct retangulo{
     float base;
     float al;
 } Ret;
 
+// criando struct para circulo 
+
 typedef struct circulo{
     float raio;
 } Circ;
 
+// criando funcao que retorna o maior retangulo circunscrito
 
 Ret * ret_circunscrito(Circ *c, float h){
-	
+    // alocando a struct retangulo
     Ret *r= malloc(sizeof(Ret));
     r->base = 2 * sqrt(pow(c->raio, 2) - pow(h, 2));
     r->al = h;
-    
+    // retornando o calculo
     return r;
 }
+// criando funcao do circulo
 
 Circ * circ_interno(Ret *r){
-	
+    // alocando a struct circulo
     Circ *c = malloc(sizeof(Circ));
     c->raio = sqrt(pow(r->base, 2) + pow(r->al, 2)) / 2;
+    // retornando calculo
     return c;
 }
 
 
 int main(void){
+    
     Circ *c = malloc(sizeof(Circ));
     
     c->raio = 5;
     
     Ret *r = ret_circunscrito(c, 3);
-    
+    // imprimindo 
     printf("Base : %.0f \n", r->base); 
     printf("Altura : %.0f \n", r->al);
-    
+    // liberando vetores que foram alocados
     free(c);
     free(r);
     return 0;
